@@ -16,10 +16,35 @@ export const useApiData = (accessToken?: string | null) => {
 
   useEffect(() => {
     //https://developer.spotify.com/documentation/web-api/reference/get-a-list-of-current-users-playlists
-    async function fetchPlaylists() {}
+    async function fetchPlaylists() {
+      const data = await fetch(
+        "https://api.spotify.com/v1/me/playlists",
+        requestDefaultOptions()
+      );
+      if (data.ok) {
+        const playlists = await data.json();
+        setPlaylists(playlists.items);
+      } else {
+        const { error } = await data.json();
+        setError(error.message);
+      }
+    }
 
     //https://developer.spotify.com/documentation/web-api/reference/get-current-users-profile
-    async function fetchUser() {}
+    async function fetchUser() {
+      const data = await fetch(
+        "https://api.spotify.com/v1/me",
+        requestDefaultOptions()
+      );
+
+      if (data.ok) {
+        const user = await data.json();
+        setUser(user);
+      } else {
+        const { error } = await data.json();
+        setError(error.message);
+      }
+    }
 
     if (accessToken) {
       fetchPlaylists();
@@ -34,6 +59,23 @@ export const useApiData = (accessToken?: string | null) => {
       description,
       public: true,
     };
+    const response = await fetch(
+      `https://api.spotify.com/v1/users/${user?.id}/playlists`,
+      {
+        ...requestDefaultOptions(),
+        method: "POST",
+        body: JSON.stringify(body),
+      }
+    );
+
+    if (response.ok) {
+      const newPlaylist = await response.json();
+      setPlaylists((prevData) => [...prevData, newPlaylist]);
+      setAlertMessage("Playlist created");
+      setTimeout(() => {
+        setAlertMessage(null);
+      }, 2000);
+    }
   };
 
   //https://developer.spotify.com/documentation/web-api/reference/change-playlist-details
@@ -46,6 +88,27 @@ export const useApiData = (accessToken?: string | null) => {
       name,
       description,
     };
+    const response = await fetch(`https://api.spotify.com/v1/playlists/${id}`, {
+      ...requestDefaultOptions(),
+      method: "PUT",
+      body: JSON.stringify(body),
+    });
+
+    if (response.ok) {
+      setPlaylists((prevData) => {
+        const updatedList = prevData.map((p) => {
+          if (p.id === id) {
+            return { ...p, ...body };
+          }
+          return p;
+        });
+        return updatedList;
+      });
+      setAlertMessage("Playlist updated");
+      setTimeout(() => {
+        setAlertMessage(null);
+      }, 2000);
+    }
   };
 
   return {
