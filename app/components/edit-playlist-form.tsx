@@ -17,8 +17,8 @@ export const EditPlaylistForm = ({
     description: string
   ) => Promise<void>;
 }) => (
-  <>
-    <h2 className="text-4xl font-bold dark:text-white">Edit Playlist</h2>
+  <div className="flex flex-col p-7 w-[400px]">
+    <h2 className="text-2xl font-bold dark:text-white">Editar Playlist</h2>
 
     <form
       className="max-w-sm"
@@ -42,6 +42,7 @@ export const EditPlaylistForm = ({
           id="id"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           required
+          placeholder="Id de la playlist"
         />
       </div>
       <div className="mb-5">
@@ -55,7 +56,7 @@ export const EditPlaylistForm = ({
           type="text"
           id="name"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="name for the playlist"
+          placeholder="Nombre de la playlist"
           required
         />
       </div>
@@ -71,14 +72,15 @@ export const EditPlaylistForm = ({
           id="description"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           required
+          placeholder="Descripcion de la playlist"
         />
       </div>
       <button
         type="submit"
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        className="text-white bg-green-900 hover:bg-green-700 focus:ring-4 focus:outline-none focus:bg-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
       >
         Submit
       </button>
     </form>
-  </>
+  </div>
 );
