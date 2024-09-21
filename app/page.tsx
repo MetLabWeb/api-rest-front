@@ -1,39 +1,10 @@
 "use client";
 
-import { useSpotify } from "./components/use-spotify";
-import Image from "next/image";
-import { useApiData } from "./components/use-api-data";
+import { useSpotify } from "./hooks/use-spotify";
+import { useApiData } from "./hooks/use-api-data";
 import { CreatePlaylistForm } from "./components/create-playlist-form";
 import { EditPlaylistForm } from "./components/edit-playlist-form";
 import { AlertMessage } from "./components/alert-message";
-
-//Mocks for testing UI
-// const playlistsMock = [
-//   {
-//     name: "Playlist name",
-//     description: "Playlist description",
-//     id: "62fG6pYOq4IMNieCKYFNfn",
-//   },
-//   {
-//     name: "Playlist name",
-//     description: "Playlist description",
-//     id: "62fG6pYOq4IMNieCKYFNfn",
-//   },
-//   {
-//     name: "Playlist name",
-//     description: "Playlist description",
-//     id: "62fG6pYOq4IMNieCKYFNfn",
-//   },
-//   {
-//     name: "Playlist name",
-//     description: "Playlist description",
-//     id: "62fG6pYOq4IMNieCKYFNfn",
-//   },
-// ];
-// const userMock = {
-//   id: "12345666666",
-//   display_name: "MetLab Web",
-// };
 
 export default function Home() {
   const { currentToken } = useSpotify();
@@ -90,36 +61,39 @@ export default function Home() {
             </div>
           )}
         </div>
-      </main>
-      {alertMessage && <AlertMessage message={alertMessage} />}
-      {user && (
-        <div className="flex flex-row justify-center bg-gray-900 text-white p-4 rounded-lg gap-7">
-          <CreatePlaylistForm onCreatePlaylist={createPlaylist} />
+        {alertMessage && <AlertMessage message={alertMessage} />}
+        {user && (
+          <div className="flex flex-row justify-center bg-gray-900 text-white p-4 rounded-lg gap-7">
+            <CreatePlaylistForm onCreatePlaylist={createPlaylist} />
 
-          <EditPlaylistForm onUpdatePlaylist={updatePlaylist} />
-        </div>
-      )}
-      {error && (
-        <div>
-          <p>
-            There was an error when calling SpotifyApi with the following error
-            message:
-            <br />
-            <code>{error}</code>
-          </p>
-        </div>
-      )}
-      {(!currentToken?.access_token || error) && (
-        <>
-          <p>Try getting a new token to connect with Spotify</p>
-          <a
-            href="/connectSpotify"
-            className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
-          >
-            Get Spotify Token
-          </a>
-        </>
-      )}
+            <EditPlaylistForm onUpdatePlaylist={updatePlaylist} />
+          </div>
+        )}
+        {error && (
+          <div className="flex flex-col text-center items-center mt-10 mb-6 bg-gray-900 text-white p-4 rounded-lg w-96">
+            <p>
+              Ocurrió un error conectando con SpotifyApi con el siguiente
+              mensaje:
+              <br />
+              <code>{error}</code>
+            </p>
+          </div>
+        )}
+        {(!currentToken?.access_token || error) && (
+          <div className="flex flex-col text-center items-center mt-10 mb-6 bg-gray-900 text-white p-4 rounded-lg w-96">
+            <p>
+              Iniciá sesion y obtené un nuevo token para conectar con Spotify
+            </p>
+            <a
+              href="/connectSpotify"
+              className="mt-4 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
+            >
+              Obtener Token
+            </a>
+          </div>
+        )}
+      </main>
+
       <footer className="p-4 bg-gray-900 text-center">
         <p className="text-gray-500 text-sm">© 2024 Spotify by MetLab WeB 😉</p>
       </footer>

@@ -9,7 +9,7 @@
  */
 
 import { useEffect, useState } from "react";
-import { useSpotify } from "../components/use-spotify";
+import { useSpotify } from "../hooks/use-spotify";
 import { UserProfile } from "@spotify/web-api-ts-sdk";
 
 const clientId = "a53ce1dc1eff4437a8fbe1956464a7f8"; // Test MetLab Web app clientId
