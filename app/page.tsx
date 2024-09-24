@@ -32,7 +32,7 @@ export default function Home() {
         )}
       </header>
 
-      <main className="flex flex-col p-24 h-screen items-center">
+      <main className="flex flex-col p-24 h-screen items-center bg-gray-900">
         <h1 className="text-3xl font-bold mb-6">🎶 Mis Playlists</h1>
         <div className="bg-gray-900 text-white p-4 rounded-lg w-96">
           {playlists.length > 0 ? (
@@ -47,6 +47,7 @@ export default function Home() {
                   <span className="flex flex-col">
                     <strong>{playlist.name}</strong>
                     <span>{playlist.description} </span>
+                    <span>ID: {playlist.id}</span>
                   </span>
                 </li>
               ))}
@@ -63,7 +64,7 @@ export default function Home() {
         </div>
         {alertMessage && <AlertMessage message={alertMessage} />}
         {user && (
-          <div className="flex flex-row justify-center bg-gray-900 text-white p-4 rounded-lg gap-7">
+          <div className="flex flex-row justify-center bg-gray-900 text-white p-6 rounded-lg gap-7">
             <CreatePlaylistForm onCreatePlaylist={createPlaylist} />
 
             <EditPlaylistForm onUpdatePlaylist={updatePlaylist} />
